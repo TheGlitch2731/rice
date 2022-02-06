@@ -15,6 +15,10 @@ Application Menu : **Rofi**
 
 Notifications : **Dunst**
 
-Shell : **zsh + starship**
+Shell : **zsh + starship** 
+
+Screenshot taken with Flameshot
+
+Cbonsai used for the bonsai plant 
 
 ![image](https://user-images.githubusercontent.com/79125737/152680985-cffd33b9-afa5-4156-a72a-8a8af260ec54.png)
