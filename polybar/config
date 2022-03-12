@@ -17,364 +17,687 @@
 ;==========================================================
 
 [colors]
-;background = #6617181B
 background = #11121D
-;background = #aa17181B
-;background-alt = #6627292E
+;background = #222
 background-alt = #11121D
-;background-alt = #aa27292E
-
 foreground = #a9b1d6
+;foreground = #dfdfdf
 foreground-alt = #555
-primary = #A900CB
+primary = #106691
 secondary = #e60053
 alert = #bd2c40
 
-[bar/main]
-;monitor = ${env:MONITOR:HDMI-1}
-width = 98%
-;height = 30
-offset-x = 1%
-offset-y = 1%
-;radius = 10
-radius = 0 
-fixed-center = true
+[bar/LVDS-1]
+monitor = LVDS-1
+width = 100%
+height = 31
+;offset-x = 1%
+;offset-y = 1%
+radius = 15.5
+fixed-center = false
 
 background = ${colors.background}
 foreground = ${colors.foreground}
 
-line-size = 3
+line-size = 2
 line-color = #f00
 
-
-border-size = 0
+border-left-size = 16
+border-right-size = 16
+border-top-size = 8
+border-bottom-size = 0
 border-color = #00000000
 
+padding-left = 2
+padding-right = 2
 
 module-margin-left = 1
 module-margin-right = 1
 
-font-0 = fixed:pixelsize=10;2
-;Most icons
-font-1 = "Inconsolata Nerd Font Mono:style=Medium:pixelsize=17;2" 
-;Workspace + music player icons
-font-2 = "Font Awesome 5 Free Solid:style=Solid:pixelsize=16;4"
-;Only Chromium icon lul
-font-3 = "Font Awesome 5 Brands Regular:style=Regular:pixelsize=15;3"
-;Most up right icons
-font-4 = "Font Awesome 5 Free Solid:style=Solid:pixelsize=12;2"
-;Bars (music player, volume,brightness)
-font-5 = "Inconsolata Nerd Font Mono:style=Medium:pixelsize=17;4"
-;Optimus
-font-6 = Spy Agency:pixelsize=12:0
-;font-6 = AMDRTG:pixelsize=12:2
-;MusicPlayer
-font-7 = "Source Han Sans JP,源ノ角ゴシック JP,Source Han Sans JP Light,源ノ角ゴシック JP Light":pixelsize=10;2
-;Wifi
-font-8 = "Material Design Icons:pixelsize=13;3"
-;Battery charging (good siwifize)
-font-9 = "Inconsolata Nerd Font Mono:style=Medium:pixelsize=29;5"
-;Arch Logo
-font-10 = "Inconsolata Nerd Font Mono:style=Medium:pixelsize=34;7"
+font-0 = "Cascadia Code:pixelsize=12;2"
+font-1 = "Font Awesome 5 Free:style=Regular:pixelsize=14;3"
+font-2 = "Font Awesome 5 Free:style=Solid:pixelsize=14;3"
+font-3 = "Font Awesome 5 Brands:pixelsize=14;3"
 
-[bar/example]
-inherit = bar/main
-enable-ipc = true
-
-height = 30
-modules-left = bspwm 
-modules-center = xwindow
-modules-right = pulseaudio xkeyboard memory cpu battery temperature date
-
-padding-left = 0
-padding-right = 2
+modules-left = bspwm
+modules-center = spotify spotify-prev spotify-play-pause spotify-next xwindow
+modules-right = network-ethernet network-wlan xkeyboard battery-internal battery-external pulseaudio backlight date separator bluetooth power-menu
 
 ;tray-position = right
 ;tray-padding = 2
-;tray-background = ${colors.background}
+;tray-background = #0063ff
 
-;wm-restack = bspwm
+wm-restack = bspwm
 ;wm-restack = i3
 
-;override-redirect = true
+override-redirect = false
 
+;scroll-up = bspwm-desknext
+;scroll-down = bspwm-deskprev
+
+;scroll-up = i3wm-wsnext
+;scroll-down = i3wm-wsprev
 
 cursor-click = pointer
 cursor-scroll = ns-resize
 
+enable-ipc = true
 
+[bar/HDMI2]
+inherit = bar/DP1
+monitor = HDMI2
 
-[bar/bot]
-inherit = bar/main
-bottom = true
+[bar/DP1]
+inherit = bar/LVDS-1
+monitor = DP1
 
-height = 25
-modules-left = mpd
-modules-right = optimusgpu backlight
-
-padding-left = 2
-padding-right = 5
-
-
-
-[module/xwindow]
-type = internal/xwindow
-label = %title:0:30:...%
-
-[module/xkeyboard]
-type = internal/xkeyboard
-blacklist-0 = num lock
-blacklist-1 = caps lock
-
-;format-prefix = " "
-format-prefix = " %{T5}%{T-} "
-format-prefix-foreground = ${colors.foreground-alt}
-format-prefix-underline = #F52A0A
-
-label-layout = "%layout% "
-label-layout-underline = #F52A0A
-
-label-indicator-padding = 2
-label-indicator-margin = 1
-label-indicator-background = #F52A0A
-label-indicator-underline = #F52A0A
-
-[module/filesystem]
-type = internal/fs
-interval = 25
-
-mount-0 = /
-
-label-mounted = %{F#0a81f5}%mountpoint%%{F-}: %percentage_used%%
-label-unmounted = %mountpoint% not mounted
-label-unmounted-foreground = ${colors.foreground-alt}
-
-
-
-; The following labels will be used to indicate the layout/mode
-; for the focused workspace. Requires <label-mode>
-;
-; Available tokens:
-;   None
-;label-monocle = 
-;label-tiled = 
-;label-fullscreen = 
-;label-floating = 
-;label-pseudotiled = P
-;label-locked = 
-;label-locked-foreground = #bd2c40
-;label-sticky = 
-;label-sticky-foreground = #fba922
-;label-private = 
-;label-private-foreground = #bd2c40
-;label-marked = M
-
-; Separator in between workspaces
-; label-separator = |
 
 [module/bspwm]
 type = internal/bspwm
 
-label-focused = %index%
-label-focused-background = ${colors.background-alt}
+label-focused = %name%
+;label-focused-background = ${colors.background-alt}
+label-focused-foreground = ${colors.primary}
 label-focused-underline= ${colors.primary}
-label-focused-padding = 2
+label-focused-padding = 1
 
-label-occupied = %index%
-label-occupied-padding = 2
+label-occupied = %name%
+label-occupied-foreground = ${colors.primary}
+label-occupied-padding = 1
 
-label-urgent = %index%!
-label-urgent-background = ${colors.alert}
-label-urgent-padding = 2
+label-urgent = %name%!
+label-urgent-background = ${colors.primary}
+label-urgent-padding = 1
 
-label-empty = %index%
-label-empty-foreground = ${colors.foreground-alt}
-label-empty-padding = 2
+label-empty = %name%
+label-empty-foreground = ${colors.foreground}
+label-empty-padding = 1
 
 ; Separator in between workspaces
- label-separator = |
-[module/mpd]
-type = internal/mpd
-format-online = %{A3:~/scripts/music &:}<icon-prev> <icon-stop> <toggle> <icon-next>  <label-song>    <bar-progress>   <label-time>%{A}
-icon-prev = %{T3}%{T-}
-icon-stop = %{T3}%{T-}
-icon-play = %{T3}%{T-}
-icon-pause = %{T3}%{T-}
-icon-next = %{T3}%{T-}
+; label-separator = |
+[module/xwindow]
+type = internal/xwindow
+label = %title:0:30:...%
+[module/spotify]
+type = custom/script
+interval = 1
+format-prefix = "%{F#106691}%{F-} "
+format = <label>
+exec = sh ~/.config/polybar/scripts/spotify.sh -i "%artist%{F#106691}:%{F-} %title" -e " "
+exec-if = pgrep -x spotify
 
-label-song-maxlen = 50
-label-song-ellipsis = true
-; Only applies if <bar-progress> is used
-bar-progress-width = 30
-bar-progress-indicator = 
-bar-progress-fill = %{T6}%{F#C140C1}%{F-}%{T-}
-bar-progress-empty = %{T6}%{F#666}%{F-}%{T-}
-click-left = mpc volume +2
-scroll-up = mpc volume +2
-scroll-down = mpc volume -2
+[module/spotify-prev]
+type = custom/script
+format = <label>
+exec = echo "%{F#106691}%{F-}"
+click-left = playerctl previous spotify
+exec-if = pgrep -x spotify
+
+[module/spotify-play-pause]
+type = custom/script
+format = <label>
+exec = echo "%{F#106691}%{F-}"
+click-left = playerctl play-pause spotify 
+exec-if = pgrep -x spotify
+
+[module/spotify-next]
+type = custom/script
+format = <label>
+exec = echo "%{F#106691}%{F-}"
+click-left = playerctl next spotify
+exec-if = pgrep -x spotify
+
+[module/network-ethernet]
+type = internal/network
+; Name of the network interface to display. You can get the names of the
+; interfaces on your machine with `ip link`
+; Wireless interfaces often start with `wl` and ethernet interface with `eno` or `eth`
+interface = enp0s31f6
+
+; Seconds to sleep between updates
+; Default: 1
+interval = 3.0
+
+; Test connectivity every Nth update
+; A value of 0 disables the feature
+; NOTE: Experimental (needs more testing)
+; Default: 0
+;ping-interval = 3
+
+; Accumulate values from all interfaces
+; when querying for up/downspeed rate
+; Default: false
+accumulate-stats = true
+
+; Consider an `UNKNOWN` interface state as up.
+; Some devices like USB network adapters have 
+; an unknown state, even when they're running
+; Default: false
+unknown-as-up = true
+
+; Available tags:
+;   <label-connected> (default)
+;   <ramp-signal>
+format-connected = %{F#106691}%{F-} <label-connected>
+
+; Available tags:
+;   <label-disconnected> (default)
+format-disconnected = 
+
+; Available tags:
+;   <label-connected> (default)
+;   <label-packetloss>
+;   <animation-packetloss>
+format-packetloss = <animation-packetloss> <label-connected>
+
+; All labels support the following tokens:
+;   %ifname%    [wireless+wired]
+;   %local_ip%  [wireless+wired]
+;   %local_ip6% [wireless+wired]
+;   %essid%     [wireless]
+;   %signal%    [wireless]
+;   %upspeed%   [wireless+wired]
+;   %downspeed% [wireless+wired]
+;   %linkspeed% [wired]
+
+; Default: %ifname% %local_ip%
+label-connected = %local_ip%
+label-connected-foreground = #eefafafa
+
+; Default: (none)
+label-disconnected = not connected
+label-disconnected-foreground = #66ffffff
+
+; Default: (none)
+;label-packetloss = %essid%
+;label-packetloss-foreground = #eefafafa
+
+; Only applies if <ramp-signal> is used
+ramp-signal-0 = 😱
+ramp-signal-1 = 😠
+ramp-signal-2 = 😒
+ramp-signal-3 = 😊
+ramp-signal-4 = 😃
+ramp-signal-5 = 😈
+
+; Only applies if <animation-packetloss> is used
+animation-packetloss-0 =%{F#106691}%{F-} 
+animation-packetloss-0-foreground = #ffa64c
+animation-packetloss-1 =%{F#106691}%{F-} 
+animation-packetloss-1-foreground = #000000
+; Framerate in milliseconds
+animation-packetloss-framerate = 500
 
 
-[module/cpu]
-type = internal/cpu
-interval = 4
-;format-prefix = "%{T5}%{T-} "
-format-prefix = "%{A1:~/.config/rofi/scripts/rofi-cpu-governor:}%{T10}%{T-}%{A}"
-format-prefix-foreground = ${colors.foreground-alt}
-format-underline = #f90000
-label = %percentage:2%%
 
-[module/memory]
-type = internal/memory
-interval = 4
-;format-prefix = " "
-format-prefix ="%{A1:doas bash -c "echo 3 > /proc/sys/vm/drop_caches":}%{T5}%{T-} %{A}"
-format-prefix-foreground = ${colors.foreground-alt}
-format-underline = #4bffdc
-label =%percentage_used%%
-; label =%gb_used:0:4% / 16 GB
+[module/network-wlan]
+type = internal/network
+; Name of the network interface to display. You can get the names of the
+; interfaces on your machine with `ip link`
+; Wireless interfaces often start with `wl` and ethernet interface with `eno` or `eth`
+interface = wlp4s0
 
-[module/date]
-type = internal/date
-interval = 5
+; Seconds to sleep between updates
+; Default: 1
+interval = 3.0
 
-date =
-date-alt = " %d/%m/%Y"
+; Test connectivity every Nth update
+; A value of 0 disables the feature
+; NOTE: Experimental (needs more testing)
+; Default: 0
+;ping-interval = 3
 
-time = %H:%M
-time-alt = %H:%M
+; Accumulate values from all interfaces
+; when querying for up/downspeed rate
+; Default: false
+accumulate-stats = true
 
-;format-prefix = 
-format-prefix = %{T5}%{T-}
-format-prefix-foreground = ${colors.foreground-alt}
-;format-underline = #0a6cf5
-format-underline = #C00AF5
-label = %{A3:~/.config/rofi/scripts/calendar:}%date% %time%%{A}
+; Consider an `UNKNOWN` interface state as up.
+; Some devices like USB network adapters have 
+; an unknown state, even when they're running
+; Default: false
+unknown-as-up = true
+
+; Available tags:
+;   <label-connected> (default)
+;   <ramp-signal>
+format-connected = %{F#106691}%{F-} <label-connected>
+
+; Available tags:
+;   <label-disconnected> (default)
+format-disconnected = 
+
+; Available tags:
+;   <label-connected> (default)
+;   <label-packetloss>
+;   <animation-packetloss>
+format-packetloss = <animation-packetloss> <label-connected>
+
+; All labels support the following tokens:
+;   %ifname%    [wireless+wired]
+;   %local_ip%  [wireless+wired]
+;   %local_ip6% [wireless+wired]
+;   %essid%     [wireless]
+;   %signal%    [wireless]
+;   %upspeed%   [wireless+wired]
+;   %downspeed% [wireless+wired]
+;   %linkspeed% [wired]
+
+; Default: %ifname% %local_ip%
+label-connected =  %essid%
+label-connected-foreground = #eefafafa
+
+; Default: (none)
+label-disconnected = not connected
+label-disconnected-foreground = #66ffffff
+
+; Default: (none)
+;label-packetloss = %essid%
+;label-packetloss-foreground = #eefafafa
+
+; Only applies if <ramp-signal> is used
+ramp-signal-0 = 😱
+ramp-signal-1 = 😠
+ramp-signal-2 = 😒
+ramp-signal-3 = 😊
+ramp-signal-4 = 😃
+ramp-signal-5 = 😈
+
+; Only applies if <animation-packetloss> is used
+animation-packetloss-0 =%{F#106691}%{F-} 
+animation-packetloss-0-foreground = #ffa64c
+animation-packetloss-1 =%{F#106691}%{F-} 
+animation-packetloss-1-foreground = #000000
+; Framerate in milliseconds
+animation-packetloss-framerate = 500
+
+[module/xkeyboard]
+type = internal/xkeyboard
+
+; List of indicators to ignore
+blacklist-0 = num lock
+blacklist-1 = scroll lock
+
+; Available tags:
+;   <label-layout> (default)
+;   <label-indicator> (default)
+format = <label-layout>
+format-spacing = 0
+
+; Available tokens:
+;   %layout%
+;   %name%
+;   %number%
+;   %icon%
+; Default: %layout%
+label-layout = %{F#106691c}%{F-} %layout%
+;label-layout-padding = 2
+;label-layout-background = #bc99ed
+;label-layout-foreground = #000
+
+; Available tokens:
+;   %name%
+; Default: %name%
+; @deprecated, use label-indicator-on
+label-indicator = %name%
+
+; layout-icon-[0-9]+ = layout;icon
+; Assign each layout an icon that will be available as %icon% token for the
+; <label-layout> tag. The part before ';' will try to match %layout% value.
+layout-icon-default = some-icon
+layout-icon-0 = ch;C
+layout-icon-1 = us;U
+
+; indicator-icon-[0-9]+ = indicator;off icon;on icon
+; Provides the content of the %icon% token in label-indicator-*
+indicator-icon-default = 
+indicator-icon-0 = caps lock;-CL;+CL
+indicator-icon-1 = scroll lock;;+SL
+indicator-icon-2 = num lock;-NL;+NL
+
+; Replaces label-indicator
+; Available tokens:
+;   %name%
+;   %icon%
+; Default: %name%
+label-indicator-on = +%name%
+; Available tokens:
+;   %name%
+;   %icon%
+; Default: (none)
+label-indicator-off = -%name%
+
+; Replaces label-indicator-* if for specific indicators
+; Available tokens:
+;   %name%
+;   %icon%
+label-indicator-on-capslock = 
+label-indicator-off-capslock = 
+label-indicator-on-numlock = 
+label-indicator-off-numlock = 
+label-indicator-on-scrolllock = 
+label-indicator-off-scrolllock = 
+
+[module/battery-internal]
+type = internal/battery
+
+; This is useful in case the battery never reports 100% charge
+full-at = 99
+
+; Use the following command to list batteries and adapters:
+; $ ls -1 /sys/class/power_supply/
+battery = BAT0
+adapter = AC
+
+; If an inotify event haven't been reported in this many
+; seconds, manually poll for new values.
+;
+; Needed as a fallback for systems that don't report events
+; on sysfs/procfs.
+;
+; Disable polling by setting the interval to 0.
+;
+; Default: 5
+poll-interval = 5
+
+; see "man date" for details on how to format the time string
+; NOTE: if you want to use syntax tags here you need to use %%{...}
+; Default: %H:%M:%S
+time-format = %H:%M
+
+; Available tags:
+;   <label-charging> (default)
+;   <bar-capacity>
+;   <ramp-capacity>
+;   <animation-charging>
+format-charging = <animation-charging> <label-charging>
+
+; Available tags:
+;   <label-discharging> (default)
+;   <bar-capacity>
+;   <ramp-capacity>
+;   <animation-discharging>
+format-discharging = <ramp-capacity> <label-discharging>
+
+; Available tags:
+;   <label-full> (default)
+;   <bar-capacity>
+;   <ramp-capacity>
+;   format-full = <label-full>
+
+; Available tokens:
+;   %percentage% (default) - is set to 100 if full-at is reached
+;   %percentage_raw%
+;   %time%
+;   %consumption% (shows current charge rate in watts)
+label-charging = %percentage%%
+
+; Available tokens:
+;   %percentage% (default) - is set to 100 if full-at is reached
+;   %percentage_raw%
+;   %time%
+;   %consumption% (shows current discharge rate in watts)
+label-discharging = %percentage%%
+
+; Available tokens:
+;   %percentage% (default) - is set to 100 if full-at is reached
+;   %percentage_raw%
+ label-full = %{F#106691c}%{F-} 100%
+
+; Only applies if <ramp-capacity> is used
+ramp-capacity-0 =%{F#106691c}%{F-} 
+ramp-capacity-1 =%{F#106691}%{F-} 
+ramp-capacity-2 =%{F#106691}%{F-} 
+ramp-capacity-3 =%{F#106691}%{F-} 
+ramp-capacity-4 =%{F#106691}%{F-} 
+
+; Only applies if <bar-capacity> is used
+bar-capacity-width = 10
+
+; Only applies if <animation-charging> is used
+animation-charging-0 =%{F#106691c}%{F-} 
+animation-charging-1 =%{F#106691}%{F-} 
+animation-charging-2 =%{F#106691}%{F-} 
+animation-charging-3 =%{F#106691}%{F-} 
+animation-charging-4 =%{F#106691}%{F-} 
+; Framerate in milliseconds
+animation-charging-framerate = 500
+
+; Only applies if <animation-discharging> is used
+animation-discharging-0 =%{F#106691}%{F-} 
+animation-discharging-1 =%{F#106691}%{F-} 
+animation-discharging-2 =%{F#106691}%{F-} 
+animation-discharging-3 =%{F#106691}%{F-} 
+animation-discharging-4 =%{F#106691}%{F-} 
+; Framerate in milliseconds
+animation-discharging-framerate = 500
+
+
+
+[module/battery-external]
+type = internal/battery
+
+; This is useful in case the battery never reports 100% charge
+full-at = 99
+
+; Use the following command to list batteries and adapters:
+; $ ls -1 /sys/class/power_supply/
+battery = BAT1
+adapter = AC
+
+; If an inotify event haven't been reported in this many
+; seconds, manually poll for new values.
+;
+; Needed as a fallback for systems that don't report events
+; on sysfs/procfs.
+;
+; Disable polling by setting the interval to 0.
+;
+; Default: 5
+poll-interval = 5
+
+; see "man date" for details on how to format the time string
+; NOTE: if you want to use syntax tags here you need to use %%{...}
+; Default: %H:%M:%S
+time-format = %H:%M
+
+; Available tags:
+;   <label-charging> (default)
+;   <bar-capacity>
+;   <ramp-capacity>
+;   <animation-charging>
+format-charging = <animation-charging> <label-charging>
+
+; Available tags:
+;   <label-discharging> (default)
+;   <bar-capacity>
+;   <ramp-capacity>
+;   <animation-discharging>
+format-discharging = <ramp-capacity> <label-discharging>
+
+; Available tags:
+;   <label-full> (default)
+;   <bar-capacity>
+;   <ramp-capacity>
+;   format-full = <label-full>
+
+; Available tokens:
+;   %percentage% (default) - is set to 100 if full-at is reached
+;   %percentage_raw%
+;   %time%
+;   %consumption% (shows current charge rate in watts)
+label-charging = %percentage%%
+
+; Available tokens:
+;   %percentage% (default) - is set to 100 if full-at is reached
+;   %percentage_raw%
+;   %time%
+;   %consumption% (shows current discharge rate in watts)
+label-discharging = %percentage%%
+
+; Available tokens:
+;   %percentage% (default) - is set to 100 if full-at is reached
+;   %percentage_raw%
+ label-full = %{F#106691}%{F-} 100%
+
+; Only applies if <ramp-capacity> is used
+ramp-capacity-0 =%{F#106691}%{F-} 
+ramp-capacity-1 =%{F#106691}%{F-} 
+ramp-capacity-2 =%{F#106691}%{F-} 
+ramp-capacity-3 =%{F#106691}%{F-} 
+ramp-capacity-4 =%{F#106691}%{F-} 
+
+; Only applies if <bar-capacity> is used
+bar-capacity-width = 10
+
+; Only applies if <animation-charging> is used
+animation-charging-0 =%{F#106691}%{F-} 
+animation-charging-1 =%{F#106691}%{F-} 
+animation-charging-2 =%{F#106691}%{F-} 
+animation-charging-3 =%{F#106691}%{F-} 
+animation-charging-4 =%{F#106691}%{F-} 
+; Framerate in milliseconds
+animation-charging-framerate = 500
+
+; Only applies if <animation-discharging> is used
+animation-discharging-0 =%{F#106691}%{F-} 
+animation-discharging-1 =%{F#106691}%{F-} 
+animation-discharging-2 =%{F#106691}%{F-} 
+animation-discharging-3 =%{F#106691}%{F-} 
+animation-discharging-4 =%{F#106691}%{F-} 
+; Framerate in milliseconds
+animation-discharging-framerate = 500
+
 
 [module/pulseaudio]
 type = internal/pulseaudio
 
-format-volume = <label-volume> <bar-volume>
-label-volume = VOL %percentage%%
-label-volume-foreground = ${root.foreground}
+; Sink to be used, if it exists (find using `pacmd list-sinks`, name field)
+; If not, uses default sink
+sink = alsa_output.pci-0000_12_00.3.analog-stereo
 
-label-muted = 🔇 muted
-label-muted-foreground = #666
+; Use PA_VOLUME_UI_MAX (~153%) if true, or PA_VOLUME_NORM (100%) if false
+; Default: true
+use-ui-max = true
 
-bar-volume-width = 10
-bar-volume-foreground-0 = #55aa55
-bar-volume-foreground-1 = #55aa55
-bar-volume-foreground-2 = #55aa55
-bar-volume-foreground-3 = #55aa55
-bar-volume-foreground-4 = #55aa55
-bar-volume-foreground-5 = #f5a70a
-bar-volume-foreground-6 = #ff5555
-bar-volume-gradient = false
-bar-volume-indicator = |
-bar-volume-indicator-font = 2
-bar-volume-fill = ─
-bar-volume-fill-font = 2
-bar-volume-empty = ─
-bar-volume-empty-font = 2
-bar-volume-empty-foreground = ${colors.foreground-alt}
+; Interval for volume increase/decrease (in percent points)
+; Default: 5
+interval = 5
 
-[module/backlight]
-type = internal/backlight
-card = amdgpu_bl0
+; Available tags:
+;   <label-volume> (default)
+;   <ramp-volume>
+;   <bar-volume>
+format-volume = <ramp-volume> <label-volume>
 
-enable-scroll = true
-scroll-up = light -A 5
-scroll-down = light -U 5
-format = <label> <bar>
-label = "%{T6}ﯦ%{T-} " 
+; Available tags:
+;   <label-muted> (default)
+;   <ramp-volume>
+;   <bar-volume>
+;format-muted = <label-muted>
 
 ; Available tokens:
 ;   %percentage% (default)
-; label = %percentage%%
+;   %decibels% (unreleased)
+;label-volume = %percentage%%
 
-; Only applies if <bar> is used
-bar-width = 11
-bar-foreground-0 = #F0CC00
-;bar-gradient = true
-bar-indicator = 
-bar-indicator-font = 2
-bar-fill = %{T6}ﭳ%{T-}
-bar-fill-font = 2
-bar-empty = %{T6}ﭳ%{T-}
-bar-empty-font = 2
-bar-empty-foreground = ${colors.foreground-alt}
+; Available tokens:
+;   %percentage% (default)
+;   %decibels% (unreleased)
+label-muted = %{F#106691}%{F-} off
+;label-muted-foreground = #666
 
-[module/battery]
-type = internal/battery
-battery = BAT0
-adapter = AC0
-full-at = 98 
+; Only applies if <ramp-volume> is used
+ramp-volume-0 =%{F#106691}%{F-} 
+ramp-volume-1 =%{F#106691}%{F-} 
+ramp-volume-2 =%{F#106691}%{F-} 
 
-format-discharging-padding = 0
+; Right and Middle click (unreleased)
+click-right = pavucontrol &
+; click-middle = 
 
-;format-charging = <ramp-capacity> <label-charging>
-format-charging = %{A1:~/scripts/polybar/batterylife:}<animation-charging><label-charging>%{A}
-format-charging-underline = #ffb52a
+[module/backlight]
+type = internal/xbacklight
 
-format-discharging= %{A1:~/scripts/polybar/batterylife:}<ramp-capacity>  <label-discharging>%{A}
-; format-discharging = <ramp-capacity>  <label-discharging> 
-;format-discharging = <animation-discharging> <label-discharging>
-format-discharging-underline = ${self.format-charging-underline}
+format = <label>
 
-format-full-prefix = "%{T1}  %{T-} "
-format-full-prefix-foreground = ${colors.foreground-alt}
-format-full-underline = ${self.format-charging-underline}
+label = %{F#106691}%{F-} %percentage%%
 
-ramp-capacity-0 = %{T2}%{T-}
-ramp-capacity-1 = %{T2}%{T-}
-ramp-capacity-2 = %{T2}%{T-}
-ramp-capacity-3 = %{T2}%{T-}
-ramp-capacity-4 = %{T2}%{T-}
-ramp-capacity-5 = %{T2}%{T-}
-ramp-capacity-6 = %{T2}%{T-}
-ramp-capacity-7 = %{T2}%{T-}
-ramp-capacity-8 = %{T2}%{T-}
-ramp-capacity-9 = %{T2}%{T-}
-ramp-capacity-10 = %{T2}%{T-}
-ramp-capacity-foreground = ${colors.foreground-alt}
+; XRandR output to get get values from
+; Default: the monitor defined for the running bar
+; output = HDMI-1
 
-animation-charging-0 = %{T10}%{T-}
-animation-charging-1 = %{T10}%{T-}
-animation-charging-2 = %{T10}%{T-}
-animation-charging-3 = %{T10}%{T-}
-animation-charging-4 = %{T10}%{T-}
-animation-charging-5 = %{T10}%{T-}
+; Create scroll handlers used to set the backlight value
+; Default: true
+enable-scroll = false
 
-animation-charging-foreground = ${colors.foreground-alt}
-animation-charging-framerate = 750
+[module/date]
+type = internal/date
 
-;animation-discharging-0 = %{T1}%{T-}
-;animation-discharging-1 = %{T1}%{T-}
-;animation-discharging-2 = %{T1}%{T-}
-;animation-discharging-3 = %{T1}%{T-}
-;animation-discharging-4 = %{T1}%{T-}
-;animation-discharging-foreground = ${colors.foreground-alt}
-;animation-discharging-framerate = 750
+; Seconds to sleep between updates
+interval = 1.0
 
-[module/temperature]
-type = internal/temperature
-thermal-zone = 0
-warn-temperature = 60
+date = %d-%m-%Y%
+time = %H:%M
 
-format = <ramp> <label>
-format-underline = #f50a4d
-format-warn = <ramp> <label-warn>
-format-warn-underline = ${self.format-underline}
+label = %{F#106691}%{F-} %date% %time%
 
-label = %temperature-c%
-label-warn = %temperature-c%
-label-warn-foreground = ${colors.secondary}
+[module/separator]
+type = custom/script
+format = <label>
+exec = echo "|"
 
-ramp-3 = %{T5}%{T-}
-ramp-2 = %{T5}%{T-}
-ramp-1 = %{T5}%{T-}
-ramp-0 = %{T5}%{T-}
+[module/bluetooth]
+type = custom/script
+exec = echo "%{F#106691}%{F-}"
+interval = 1
+click-left = rofi-bluetooth
 
-ramp-foreground = ${colors.foreground-alt}
+[module/power-menu]
+type = custom/menu
+
+; If true, <label-toggle> will be to the left of the menu items (default).
+; If false, it will be on the right of all the items.
+expand-right = true
+
+; "menu-LEVEL-N" has the same properties as "label-NAME" with
+; the additional "exec" property
+;
+; Available exec commands:
+;   menu-open-LEVEL
+;   menu-close
+; Other commands will be executed using "/bin/sh -c $COMMAND"
+
+menu-0-0 ="|"
+menu-0-0-exec =
+menu-0-1 ="%{F#106691}%{F-}"
+menu-0-1-exec = systemctl suspend 
+menu-0-2 = "%{F#106691}%{F-}"
+menu-0-2-exec = reboot
+menu-0-3 = "%{F#106691}%{F-}"
+menu-0-3-exec = shutdown now
+menu-0-4 = "%{F#106691}%{F-}"
+menu-0-4-exec = loginctl lock-session 
+
+
+
+; Available tags:
+;   <label-toggle> (default) - gets replaced with <label-(open|close)>
+;   <menu> (default)
+; If expand-right is true, the default will be "<label-toggle><menu>" and the
+; other way around otherwise.
+; Note that if you use <label-toggle> you must also include
+; the definition for <label-open>
+format =<menu>  <label-toggle>
+
+label-open = "%{F#106691}%{F-}"
+
+label-close = "%{F#106691}%{F-}"
+
+
+; Optional item separator
+; Default: none
+label-separator = "  "
 
 [settings]
 screenchange-reload = true
@@ -388,59 +711,4 @@ screenchange-reload = true
 margin-top = 0
 margin-bottom = 0
 
-; My modules
-[module/corona]
-type = custom/ipc
-
-format = <output> 
-hook-0 = ~/scripts/corona
-initial = 1
-
-
-[module/optimusgpu]
-type = custom/script
-exec = ~/scripts/polybar/optimusgpu
-
-format = <label> 
-label = "%{T7}%output%%{T-}"
-format-margin = 4
-
-click-middle = ~/scripts/polybar/optiswitch
-interval = 999999 
-
-[module/repoup]
-type = custom/ipc
-format = %{u#17A8F1}%{+u}%{F#555}  %{T2}%{T-}%{F-} <output>  %{-u}
-hook-0 = (doas sh -c "pacman -Sy > /dev/null && pacman -Qu | wc -l || echo ?") &
-initial = 1
-
-click-left = polybar-msg -p %pid% hook repoup 1
-
-[module/battery-time]
-type = custom/ipc
-format =<output>
-; hook-0 = echo ""
-hook-0 = echo "%{F#555}|%{F-}" &
-hook-1 =echo "%{u#ffb52a}%{+u}$(acpi -b | cut -d ' ' -f 5 | cut -c1-5)%{-u}"&
-initial = 1
-
-[module/logo]
-type = custom/text
-content = "    %{T11}%{F#C140C1}%{F-}%{T-}   %{F#555}|%{F-}"
-click-left = pkill xmenu || sh ~/scripts/xmenu.sh 
-
-[module/wlan-eth]
-type = custom/ipc
-format =<output>
-hook-0 = echo "%{u#1e8a32}%{F#555} %{T9}󰤭%{T-} Off %{F-}" &
-hook-1 = $HOME/scripts/polybar/wlan &
-hook-2 = echo "%{F#555}%{T9}󰈀%{T-}%{F-} $(ifconfig enp4s0 | awk '$1=="inet" {print $2}')" &
-hook-3 = echo "%{F#555}%{T9}󰤩%{T-} | %{T9}󰈀%{T-}%{F-} $(ifconfig enp4s0 | awk '$1=="inet" {print $2}')" &
-initial = 1
-format-underline = #2EDE4E
-click-left = $HOME/.config/rofi/scripts/nmcli-rofi &
-click-right = bspc rule -a '*' -o state=floating && nm-connection-editor &
-
-
-
-
+; vim:ft=dosini
